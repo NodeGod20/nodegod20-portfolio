@@ -1,99 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="./styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/jpg" href="favicon.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validator Node - Secure & Reliable</title>
+    <title>NodeGod20</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, #4CAF50, #2196F3);
-            color: #fff;
+            background-color: #121212;
+            color: white;
+            text-align: center;
         }
         header {
-            text-align: center;
             padding: 50px;
             background: rgba(0, 0, 0, 0.7);
-            
         }
-    
-        .logo {
-            width: 800px;
-            height: 250px;
-            margin-right: 20px;
+        .neon-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            color: #00ffff;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ccff, 0 0 40px #0099ff;
         }
         .container {
             width: 80%;
             margin: auto;
             padding: 20px;
             background: rgba(111, 185, 242, 0.9);
-            color: #333;
+            color: #000000;
             border-radius: 50px;
             margin-top: 20px;
         }
-        section {
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .btn {
-            display: inline-block;
-            background: #FF9800;
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-        }
-        .btn:hover {
-            background: #E68900;
+        .projects-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
         }
         .project {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
+            background: rgba(79, 121, 206, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            width: 150px;
         }
         .project img {
             width: 70px;
             height: 70px;
             border-radius: 10px;
-            margin-right: 20px;
+            margin-bottom: 10px;
         }
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 5px;
             background: rgba(0, 0, 0, 0.7);
-            margin-top: 20px;
+            margin-top: 5px;
+        }
+        .my-projects-title {
+            font-size: 42px;
+            font-weight: bold;
+            text-align: center;
+            color: #020220; /* Warna biru gelap */
+            text-transform: uppercase;
+            text-shadow: 3px 3px 10px rgba(0, 0, 255, 0.5), 0 0 20px rgba(0, 0, 255, 0.8);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
 
-        .neon-text {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 48px;
-    text-align: center;
-    color: #00ffff; /* Warna teks neon */
-    text-transform: uppercase;
-    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ccff, 0 0 40px #0099ff;
-}
-
-/* Tambahkan background jika diperlukan */
-body {
-    background-color: #121212;
-    color: white;
-}
+        .my-projects-subtitle {
+            font-size: 18px;
+            font-style: italic;
+            text-align: center;
+            color: #0e0e0e;
+            opacity: 0.8;
+        }
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            transition: 0.3s ease-in-out;
+        }
+        .icon:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 1);
+            transform: scale(1.1);
+        }
+        .icon img {
+            width: 24px;
+            height: 24px;
+        }
+        .explorer-btn {
+            background: transparent;
+            color: cyan;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: 2px solid cyan;
+            border-radius: 5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        .explorer-btn:hover {
+            background: cyan;
+            color: #000;
+            box-shadow: 0 0 20px cyan;
+        }
 
     </style>
 </head>
 <body>
     <header>
-            <h1 class="neon-text">Welcome to NodeGod20</h1>
-            <p>Decentralized | Secure | Rewarding</p>
+        <h1 class="neon-text">Welcome To NodeGod20</h1>
+        <p>Decentralized | Secure | Rewarding</p>
     </header>
     
     <div class="container">
+        <section>
+            <h2 class="my-projects-title">My Projects</h2>
+            <p class="my-projects-subtitle">Here are some blockchain projects I have contributed as a validator :</p>
+            <div class="projects-container">
+                <div class="project">
+                    <img src="pell.png" alt="Project 1">
+                    <div>
+                        <h3>
+                            <a href="https://testnet.itrocket.net/pell/staking/pellvaloper1sdsf3qt4rgx70ue64u38h975qws0wngfs24rwe" 
+                               target="_blank" rel="noopener noreferrer">
+                                PELL
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+                
+                <div class="project">
+                    <img src="zenrock.png" alt="Project 2">
+                    <div>
+                        <h3>
+                            <a href="https://testnet.itrocket.net/zenrock/staking/zenvaloper1hgj805graf9dkd5z0sgc5tfta5yhv5jnm65dcg" 
+                               target="_blank" rel="noopener noreferrer">
+                                ZENROCK
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+                
+                <div class="project">
+                    <img src="og.jpg" alt="Project 3">
+                    <div>
+                        <h3>
+                            <a href="https://testnet.itrocket.net/og/staking/0gvaloper10hw0fe66kepdkhljjnr2ml5s8mcxdfc6kus6n6" 
+                               target="_blank" rel="noopener noreferrer">
+                                OG
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+                
+                <div class="project">
+                    <img src="prysm.jpg" alt="Project 4">
+                    <div>
+                        <h3>
+                            <a href="https://testnet.itrocket.net/prysm/staking/prysmvaloper1rpk95649wz3lc8g75fzn2k7xq6uuqs5zye2ny7" 
+                               target="_blank" rel="noopener noreferrer">
+                                PRYSM
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <img src="kiichain.png" alt="Project 5">
+                    <div>
+                        <h3>
+                            <a href="https://explorer.kiichain.io/staking/kiivaloper184kty4xyntr3ly2u0ysper62p65y5uu9m7l0m4" 
+                               target="_blank" rel="noopener noreferrer">
+                                KIICHAIN
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="container">
         <section>
             <h2>About Me</h2>
             <p>As an experienced blockchain validator, I ensure network security, efficiency, and decentralization through a robust infrastructure. With years of expertise in blockchain technology, I actively participate in securing decentralized networks, optimizing node performance, and contributing to governance decisions. My validator node is designed for high availability, ensuring minimal downtime and maximum security. By leveraging cutting-edge technology and best practices, I aim to support a reliable and scalable blockchain ecosystem while providing stakeholders with transparency and trust.</p>
@@ -110,142 +215,26 @@ body {
         </section>
         
         <section>
-            <h2>My Projects</h2>
-            <p>Here are some blockchain projects I have contributed as a validator :</p>
-            
-            <div class="project">
-                <img src="pell.png" alt="Project 1">
-                <div>
-                    <h3>PELL</h3>
-                    <a href="https://testnet.itrocket.net/pell/staking/pellvaloper1sdsf3qt4rgx70ue64u38h975qws0wngfs24rwe" target="_blank" rel="noopener noreferrer">
-                        Check Here
+            <div class="container">
+                <div class="social-icons">
+                    <a href="https://x.com/NodeGod20" target="_blank" class="icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+                    </a>
+                    <a href="https://discord.com/channels/@nodegod20" target="_blank" class="icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord">
+                    </a>
+                    <a href="https://t.me/NodeGod20" target="_blank" class="icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+                    </a>
+                    <a href="https://github.com/NodeGod20" target="_blank" class="icon">
+                        <img src="github.png" alt="GitHub">
+                    </a>
+                    <a href="khoiruhuda354@gmail.com" class="icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email">
                     </a>
                 </div>
+                <button class="explorer-btn">EXPLORER</button>
             </div>
-            
-            <div class="project">
-                <img src="zenrock.png" alt="Project 2">
-                <div>
-                    <h3>ZENROCK</h3>
-                    <a href="https://testnet.itrocket.net/zenrock/staking/zenvaloper1hgj805graf9dkd5z0sgc5tfta5yhv5jnm65dcg" target="_blank" rel="noopener noreferrer">
-                        Check Here
-                    </a>
-                </div>
-            </div>
-            
-            <div class="project">
-                <img src="og.jpg" alt="Project 3">
-                <div>
-                    <h3>OG</h3>
-                    <a href="https://testnet.itrocket.net/og/staking/0gvaloper1sz6h48ncs68ctpjfre25e4z3djp8p3dmh3dq92" target="_blank" rel="noopener noreferrer">
-                        Check Here
-                    </a>
-                </div>
-            </div>
-
-            <div class="project">
-                <img src="prysm.jpg" alt="Project 4">
-                <div>
-                    <h3>PRYSM</h3>
-                    <a href="https://testnet.itrocket.net/prysm/staking/prysmvaloper1rpk95649wz3lc8g75fzn2k7xq6uuqs5zye2ny7" target="_blank" rel="noopener noreferrer">
-                        Check Here
-                    </a>
-                </div>
-            </div>
-            <div class="project">
-                <img src="kiichain.png" alt="Project 5">
-                <div>
-                    <h3>KIICHAIN</h3>
-                    <a href="https://explorer.kiichain.io/staking/kiivaloper184kty4xyntr3ly2u0ysper62p65y5uu9m7l0m4" target="_blank" rel="noopener noreferrer">
-                        Check Here
-                    </a>
-                </div>
-            </div>
-
-
-            <p>Other Projects :</p>
-
-            <div class="project">
-                <img src="Dill.png" alt="Project 1">
-                <div>
-                    <h3>DILL</h3>
-                </div>
-            </div>
-            <div class="project">
-                <img src="privasea.png" alt="Project 2">
-                <div>
-                    <h3>PRIVASEA</h3>
-                </div>
-            </div>
-            <div class="project">
-                <img src="pipe.jpg" alt="Project 3">
-                <div>
-                    <h3>PIPE</h3>
-                </div>
-            </div>
-            <div class="project">
-                <img src="brinxai.jpg" alt="Project 4">
-                <div>
-                    <h3>BRINXAI</h3>
-                </div>
-            </div>
-            <div class="project">
-                <img src="nesa.png" alt="Project 5">
-                <div>
-                    <h3>NESA</h3>
-                </div>
-            </div>
-            <div class="project">
-                <img src="soneium.jpg" alt="Project 6">
-                <div>
-                    <h3>SONEIUM</h3>
-                </div>
-            </div>
-            <div class="project">
-                <img src="nexus.jpg" alt="Project 7">
-                <div>
-                    <h3>NEXUS</h3>
-                </div>
-            </div>
-            <div class="project">
-                <img src="zkverify.png" alt="Project 8">
-                <div>
-                    <h3>ZKVERIFY</h3>
-                </div>
-            </div>
-            <div class="project">
-                <img src="infera.jpg" alt="Project 9">
-                <div>
-                    <h3>NESA</h3>
-                </div>
-            </div>
-            <div class="project">
-                <img src="spheron.png" alt="Project 10">
-                <div>
-                    <h3>SPHERON</h3>
-                </div>
-            </div>
-        </section>
-        
-        <section>
-            <h2>Delegate to My Node</h2>
-            <p>Support network decentralization while earning rewards by staking with my validator node.</p>
-            <a href="#" class="btn">Delegate Now</a>
-        </section>
-        
-        <section>
-            <h2>Contact & Socials</h2>
-            <p>Email: <p>Github: <a href="khoiruhuda354@gmail.com" target="_blank" rel="noopener noreferrer">
-                khoiruhuda354@gmail.com
-            </a>
-            <p>Twitter: <a href="https://x.com/NodeGod20" target="_blank" rel="noopener noreferrer">
-                https://x.com/NodeGod20
-            </a>
-            <p>Github: <a href="https://github.com/NodeGod20" target="_blank" rel="noopener noreferrer">
-                https://github.com/NodeGod20
-            </a>
-            <p>Telegram: <a href="#">@NodeGod20</a></p>
-            <p>Discord: <a href="#">@nodegod20</a></p>
         </section>
     </div>
     
