@@ -1,0 +1,140 @@
+<!-- EXPLORER/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/jpg" href="favicon.jpg">
+    <title>Explorer</title>
+    <style>
+    
+    body {
+        background-color: #121212;
+        color: white;
+        font-family: 'Arial', sans-serif;
+    }
+    header {
+        padding: 50px;
+        background: rgba(0, 0, 0, 0.7);
+    }
+    .neon-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 40px;
+            color: #0066ff;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ccff, 0 0 40px #0099ff;
+    }
+    .testnet-section {
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff;
+        background: linear-gradient(to right, #660066, #9900cc);
+        padding: 10px;
+        border-radius: 8px;
+        display: inline-block;
+        box-shadow: 0 0 50px rgba(0, 89, 255, 0.5);
+    }
+    
+    .network-container {
+        display: flex;
+        flex-wrap: wrap; /* Agar responsif */
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    
+    .network-card {
+        background: #440000;
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+        width: 150px;
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        transition: transform 0.3s ease;
+    }
+    
+    .network-card img {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+    }
+    
+    .network-card p {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+    
+    .status {
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 20px;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .status.live {
+        background: linear-gradient(to right, #00ff00, #00cc99);
+    }
+    
+    .status.off {
+        background: linear-gradient(to right, #ff3300, #cc0000);
+    }
+    
+    .network-card:hover {
+        transform: scale(1.05);
+    }</style>
+</head>
+<body>
+    <h1 class="neon-text">Explorer</h1>
+    <div class="testnet-section">
+        <h2 class="section-title">🚀 Node</h2>
+        <div class="network-container">
+            <div class="network-card">
+                <img src="brinxai.jpg" alt="Brinxai">
+                <p>Brinxai</p>
+                <span class="status live">Live</span>
+            </div>
+            <div class="network-card">
+                <img src="spheron.png" alt="Spheron">
+                <p>Spheron</p>
+                <span class="status live">Live</span>
+            </div>
+            <div class="network-card">
+                <img src="zkverify.png" alt="Zkverify">
+                <p>Zkverify</p>
+                <span class="status live">Live</span>
+            </div>
+            <div class="network-card">
+                <img src="nesa.png" alt="Nesa">
+                <p>Nesa</p>
+                <span class="status live">Live</span>
+            </div>
+            <div class="network-card">
+                <img src="nexus.jpg" alt="Nexus">
+                <p>Nexus</p>
+                <span class="status live">Live</span>
+            </div>
+            <div class="network-card">
+                <img src="pipe.jpg" alt="Pipe">
+                <p>Pipe</p>
+                <span class="status live">Live</span>
+            </div>
+            <div class="network-card">
+                <img src="infera.jpg" alt="Infera">
+                <p>Infera</p>
+                <span class="status live">Live</span>
+            </div>
+            <div class="network-card">
+                <img src="privasea.png" alt="Prevasea">
+                <p>Prevasea</p>
+                <span class="status live">Live</span>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
