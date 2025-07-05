@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kiichain Node Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      color: #3b82f6;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    h1::after {
+      content: "";
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(to right, #2563eb, #60a5fa);
+      margin: 0.5rem auto 0;
+      border-radius: 9999px;
+      box-shadow: 0 0 8px #3b82f688;
+    }
+
+    table {
+      width: 100%;
+      max-width: 720px;
+      margin: 2rem auto 3rem;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 0.75rem;
+      box-shadow: 0 0 12px #1e293baa;
+    }
+
+    th, td {
+      background-color: #1e293b;
+      padding: 1rem;
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.95rem;
+      border-bottom: 1px solid #334155;
+    }
+
+    th {
+      text-transform: uppercase;
+      background-color: #334155;
+      color: #3b82f6;
+    }
+
+    td {
+      color: #60a5fa;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #facc15;
+      margin: 3rem auto 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: #fbbf24;
+      border-radius: 9999px;
+      box-shadow: 0 0 8px #facc15aa;
+    }
+
+    .cmd-block {
+      position: relative;
+      background-color: #1e293b;
+      color: #e2e8f0;
+      font-family: monospace;
+      font-size: 0.9rem;
+      padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+      border-radius: 0.75rem;
+      max-width: 850px;
+      margin: 1rem auto 3rem;
+      box-shadow: 0 0 10px #2563eb77;
+      white-space: pre-wrap;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 9999px;
+      width: 2.25rem;
+      height: 2.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 0 10px #3b82f688;
+    }
+
+    .copy-btn:hover {
+      background-color: #60a5fa;
+    }
+
+    .copy-btn svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Minimum Hardware</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>CPU</th>
+        <th>RAM</th>
+        <th>SSD</th>
+        <th>OS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>kiichaind</td>
+        <td>8</td>
+        <td>16</td>
+        <td>400 GB</td>
+        <td>Ubuntu 22.04 LTS</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2 class="section-title">Install Dependencies</h2>
+    <div class="cmd-block" id="cmd1">
+sudo apt update && sudo apt upgrade -y
+sudo apt install curl git wget htop tmux build-essential jq make lz4 gcc unzip -y
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Install Go</h2>
+    <div class="cmd-block" id="cmd1">
+ver="1.22.2"
+cd $HOME
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-amd64.tar.gz"
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+source ~/.bash_profile
+go version
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Download Binary</h2>
+    <div class="cmd-block" id="cmd1">
+cd $HOME
+rm -rf kiichain
+git clone https://github.com/KiiChain/kiichain.git
+cd kiichain
+git checkout v2.0.0
+make install
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Config and Init App</h2>
+    <div class="cmd-block" id="cmd1">
+kiichaind init test --chain-id oro_1336-1
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Download Genesis and Addrbook</h2>
+    <div class="cmd-block" id="cmd1">
+curl -L https://files-kiichain.catsmile.space/addrbook.json > $HOME/.kiichain/config/addrbook.json
+curl -L https://files-kiichain.catsmile.space/genesis.json > $HOME/.kiichain/config/genesis.json
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Custom Ports</h2>
+    <div class="cmd-block" id="cmd1">
+sed -i -e "s%:26657%:19657%" $HOME/.kiichain/config/client.toml
+sed -i -e "s%:26658%:19658%; s%:26657%:19657%; s%:6060%:19060%; s%:26656%:19656%; s%:26660%:19660%" $HOME/.kiichain/config/config.toml
+sed -i -e "s%:1317%:19317%; s%:9090%:19090%" $HOME/.kiichain/config/app.toml
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Pruning, Gas and Prometheus</h2>
+    <div class="cmd-block" id="cmd1">
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"1000000000akii\"/" $HOME/.kiichain/config/app.toml
+sed -i 's|^indexer *=.*|indexer = "null"|' $HOME/.kiichain/config/config.toml
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Create Service File</h2>
+    <div class="cmd-block" id="cmd1">
+sudo tee /etc/systemd/system/kiichaind.service > /dev/null << EOF
+[Unit]
+Description=kiichain
+After=network-online.target
+[Service]
+User=$USER
+ExecStart=$(which kiichaind) start
+Restart=always
+RestartSec=3
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
+EOF
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Start</h2>
+    <div class="cmd-block" id="cmd1">
+sudo systemctl daemon-reload
+sudo systemctl enable kiichaind
+sudo systemctl restart kiichaind
+sudo journalctl -u kiichaind -f -o cat
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Snapshot</h2>
+    <div class="cmd-block" id="cmd1">
+sudo systemctl stop kiichaind
+cp $HOME/.kiichain/data/priv_validator_state.json $HOME/.kiichain/priv_validator_state.json.backup
+kiichaind tendermint unsafe-reset-all --home $HOME/.kiichain --keep-addr-book
+curl -L https://files-kiichain.catsmile.space/snapshot_latest.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.kiichain
+mv $HOME/.kiichain/priv_validator_state.json.backup $HOME/.kiichain/data/priv_validator_state.json
+sudo systemctl restart kiichaind
+sudo journalctl -u kiichaind -f -o cat
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">State Sync</h2>
+    <div class="cmd-block" id="cmd1">
+sudo systemctl stop kiichaind
+cp $HOME/.kiichain/data/priv_validator_state.json $HOME/.kiichain/priv_validator_state.json.backup
+kiichaind tendermint unsafe-reset-all --home $HOME/.kiichain --keep-addr-book
+
+SNAP_RPC="https://rpc.dos.sentry.testnet.v3.kiivalidator.com:443"
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 1000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+sed -i "/\[statesync\]/, /^enable =/ s/=.*/= true/;\
+/^rpc_servers =/ s|=.*|= \"$SNAP_RPC,$SNAP_RPC\"|\
+/^trust_height =/ s/=.*/= $BLOCK_HEIGHT/;\
+/^trust_hash =/ s/=.*/= \"$TRUST_HASH\"/" $HOME/.kiichain/config/config.toml
+mv $HOME/.kiichain/priv_validator_state.json.backup $HOME/.kiichain/data/priv_validator_state.json
+
+sudo systemctl restart kiichaind && sudo journalctl -u kiichaind -fo cat
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Create and Restore Address</h2>
+    <div class="cmd-block" id="cmd1">
+# Create wallet
+kiichaind keys add wallet --keyring-backend test --coin-type 118 --key-type secp256k1
+# Restore wallet 
+kiichaind keys add wallet --keyring-backend test --recover --coin-type 118 --key-type secp256k1
+# Restore wallet Type EVM
+kiichaind keys add walletevm --keyring-backend test --recover --coin-type 60 --key-type eth_secp256k1
+# List
+kiichaind keys list --keyring-backend test
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Check Balance</h2>
+    <div class="cmd-block" id="cmd1">
+kiichaind q bank balances $(kiichaind keys show wallet -a)
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Create Validator</h2>
+    <div class="cmd-block" id="cmd1">
+cd $HOME
+# Create validator.json file
+echo "{\"pubkey\":{\"@type\":\"/cosmos.crypto.ed25519.PubKey\",\"key\":\"$(kiichaind comet show-validator | grep -Po '\"key\":\s*\"\K[^"]*')\"},
+    \"amount\": \"1000000000000000000akii\",
+    \"moniker\": \"mynode\",
+    \"identity\": \"\",
+    \"website\": \"\",
+    \"security\": \"\",
+    \"details\": \"I love Kiichain\",
+    \"commission-rate\": \"0.05\",
+    \"commission-max-rate\": \"0.2\",
+    \"commission-max-change-rate\": \"0.05\",
+    \"min-self-delegation\": \"1\"
+}" > $HOME/.kiichain/validator.json
+
+# Create a validator using the JSON configuration
+kiichaind tx staking create-validator $HOME/.kiichain/validator.json \
+    --from wallet \
+    --chain-id oro_1336-1 \
+    --gas-prices=1000000000akii \
+    --gas-adjustment=1.5 \
+    --gas=auto
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Delegate to own</h2>
+    <div class="cmd-block" id="cmd1">
+kiichaind tx staking delegate $(kiichaind keys show wallet --bech val -a) 1000000akii --from wallet --chain-id oro_1336-1 --gas auto --gas-adjustment 1.3 --gas-prices=1000000000akii
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Unjail Validator</h2>
+    <div class="cmd-block" id="cmd1">
+kiichaind tx slashing unjail --from wallet --chain-id oro_1336-1 --gas auto --gas-adjustment 1.3 --gas-prices=1000000000akii
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Vote</h2>
+    <div class="cmd-block" id="cmd1">
+kiichaind tx gov vote 1 yes --from wallet --chain-id oro_1336-1 --gas auto --gas-adjustment 1.3 --gas-prices=1000000000akii
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Upgrade</h2>
+    <div class="cmd-block" id="cmd1">
+sudo systemctl stop kiichaind
+cd $HOME
+rm -rf kiichain
+git clone https://github.com/KiiChain/kiichain.git
+cd kiichain
+git checkout v3.0.0
+make install
+kiichaind version
+sudo systemctl restart kiichaind
+sudo journalctl -u kiichaind -f -o cat
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Delete node</h2>
+    <div class="cmd-block" id="cmd1">
+sudo systemctl stop kiichaind
+sudo systemctl disable kiichaind
+sudo rm /etc/systemd/system/kiichaind.service
+sudo systemctl daemon-reload
+rm -rf $(which kiichaind)
+rm -rf .kiichain
+rm -rf kiichain
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-copytarget');
+        const content = document.getElementById(targetId);
+        if (content) {
+          navigator.clipboard.writeText(content.textContent.trim()).then(() => {
+            btn.innerHTML = '&#10003;';
+            setTimeout(() => {
+              btn.innerHTML = '<svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>';
+            }, 1500);
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
