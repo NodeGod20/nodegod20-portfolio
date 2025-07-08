@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumera Node Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #080d18;
+      color: #e2e8f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      color: #3b82f6;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    h1::after {
+      content: "";
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(to right, #2563eb, #60a5fa);
+      margin: 0.5rem auto 0;
+      border-radius: 9999px;
+      box-shadow: 0 0 8px #3b82f688;
+    }
+
+    table {
+      width: 100%;
+      max-width: 720px;
+      margin: 2rem auto 3rem;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 0.75rem;
+      box-shadow: 0 0 12px #1e293baa;
+    }
+
+    th, td {
+      background-color: #1e293b;
+      padding: 1rem;
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.95rem;
+      border-bottom: 1px solid #334155;
+    }
+
+    th {
+      text-transform: uppercase;
+      background-color: #334155;
+      color: #3b82f6;
+    }
+
+    td {
+      color: #60a5fa;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #00ff1a;
+      margin: 3rem auto 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: #fbbf24;
+      border-radius: 9999px;
+      box-shadow: 0 0 8px #facc15aa;
+    }
+
+    .cmd-block {
+      position: relative;
+      background-color: #1e293b;
+      color: #e2e8f0;
+      font-family: monospace;
+      font-size: 0.9rem;
+      padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+      border-radius: 0.75rem;
+      max-width: 850px;
+      margin: 1rem auto 3rem;
+      box-shadow: 0 0 10px #2563eb77;
+      white-space: pre-wrap;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 9999px;
+      width: 2.25rem;
+      height: 2.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 0 10px #3b82f688;
+    }
+
+    .copy-btn:hover {
+      background-color: #60a5fa;
+    }
+
+    .copy-btn svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Minimum Hardware</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>CPU</th>
+        <th>RAM</th>
+        <th>SSD</th>
+        <th>OS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lumera</td>
+        <td>4</td>
+        <td>8</td>
+        <td>100 GB</td>
+        <td>Ubuntu 22.04 LTS</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2 class="section-title">Install Dependencies</h2>
+    <div class="cmd-block" id="cmd1">
+sudo apt update && sudo apt upgrade -y
+sudo apt install curl git wget htop tmux build-essential jq make lz4 gcc unzip -y
+      <button class="copy-btn" data-copytarget="cmd1" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Install Go</h2>
+    <div class="cmd-block" id="cmd2">
+cd $HOME
+VER="1.23.5"
+wget "https://golang.org/dl/go$VER.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$VER.linux-amd64.tar.gz"
+rm "go$VER.linux-amd64.tar.gz"
+[ ! -f ~/.bash_profile ] && touch ~/.bash_profile
+echo "export PATH=$PATH:/usr/local/go/bin:~/go/bin" >> ~/.bash_profile
+source $HOME/.bash_profile
+[ ! -d ~/go/bin ] && mkdir -p ~/go/bin
+      <button class="copy-btn" data-copytarget="cmd2" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Set Var</h2>
+    <div class="cmd-block" id="cmd3">
+echo "export WALLET="wallet"" >> $HOME/.bash_profile
+echo "export MONIKER="test"" >> $HOME/.bash_profile
+echo "export LUMERA_CHAIN_ID="lumera-testnet-1"" >> $HOME/.bash_profile
+echo "export LUMERA_PORT="21"" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+      <button class="copy-btn" data-copytarget="cmd3" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+  <section>
+    <h2 class="section-title">Download Binary</h2>
+    <div class="cmd-block" id="cmd4">
+cd $HOME
+wget https://github.com/LumeraProtocol/lumera/releases/download/v0.4.1/lumera_v0.4.1_linux_amd64.tar.gz
+tar -xvf lumera_v0.4.1_linux_amd64.tar.gz
+rm lumera_v0.4.1_linux_amd64.tar.gz
+rm install.sh
+mv libwasmvm.x86_64.so /usr/lib/
+chmod +x lumerad
+mv lumerad $HOME/go/bin/
+lumerad version
+      <button class="copy-btn" data-copytarget="cmd4" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Config and Init App</h2>
+    <div class="cmd-block" id="cmd5">
+lumerad config node tcp://localhost:${LUMERA_PORT}657
+lumerad config keyring-backend os
+lumerad config chain-id lumera-testnet-1
+lumerad init "test" --chain-id lumera-testnet-1
+      <button class="copy-btn" data-copytarget="cmd5" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Download Genesis and Addrbook</h2>
+    <div class="cmd-block" id="cmd6">
+wget -O $HOME/.lumera/config/genesis.json https://testnet-files.bonynode.online/lumera/genesis.json
+wget -O $HOME/.lumera/config/addrbook.json https://testnet-files.bonynode.online/lumera/addrbook.json
+      <button class="copy-btn" data-copytarget="cmd6" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Seeds and Peers</h2>
+    <div class="cmd-block" id="cmd7">
+SEEDS=
+PEERS="0f85ddad45882ba2f770de01308dafcc833abe81@94.130.23.254:30756,1edeedc5f5c3d08a1999a7c334e11ad10d252039@88.99.136.168:26656,d1c934296c3e3f6379677a94a06e944e3dec17f3@94.130.143.184:17656,ad0b77cb312cd848b3debe7fbef677ef480beb75@116.202.210.177:22656,a2cac656019665fcd03d3039fee5940e77a035c4@37.27.239.10:26656,cd26df61f5d469d574fd89e3c8a08a323187090f@18.191.254.213:26656,2fe5e18e23c24accacfa9fada0f2683b9721cb0c@95.217.77.229:30756,54bb17ce612313b941ec6aee00413d6a08032e69@64.203.83.66:26656,d5519e378247dfb61dfe90652d1fe3e2b3005a5b@213.239.207.162:16956,9ed3e540ca5ff2d57a58cd9b62128a48f0fe01c3@65.109.59.22:30756"
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.lumera/config/config.toml
+      <button class="copy-btn" data-copytarget="cmd7" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Custom Ports</h2>
+    <div class="cmd-block" id="cmd8">
+sed -i.bak -e "s%:1317%:${LUMERA_PORT}317%g;
+s%:8080%:${LUMERA_PORT}080%g;
+s%:9090%:${LUMERA_PORT}090%g;
+s%:9091%:${LUMERA_PORT}091%g;
+s%:8545%:${LUMERA_PORT}545%g;
+s%:8546%:${LUMERA_PORT}546%g;
+s%:6065%:${LUMERA_PORT}065%g" $HOME/.lumera/config/app.toml
+
+sed -i.bak -e "s%:26658%:${LUMERA_PORT}658%g;
+s%:26657%:${LUMERA_PORT}657%g;
+s%:6060%:${LUMERA_PORT}060%g;
+s%:26656%:${LUMERA_PORT}656%g;
+s%^external_address = \"\"%external_address = \"$(wget -qO- eth0.me):${LUMERA_PORT}656\"%;
+s%:26660%:${LUMERA_PORT}660%g" $HOME/.lumera/config/config.toml
+      <button class="copy-btn" data-copytarget="cmd8" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Pruning, Gas and Prometheus</h2>
+    <div class="cmd-block" id="cmd9">
+sed -i -e "s/^pruning *=.*/pruning = \"custom\"/" $HOME/.lumera/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"100\"/" $HOME/.lumera/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"50\"/" $HOME/.lumera/config/app.toml
+
+sed -i 's|minimum-gas-prices =.*|minimum-gas-prices = "4000ulume"|g' $HOME/.lumera/config/app.toml
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.lumera/config/config.toml
+sed -i -e "s/^indexer *=.*/indexer = \"null\"/" $HOME/.lumera/config/config.toml
+      <button class="copy-btn" data-copytarget="cmd9" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Create Service File</h2>
+    <div class="cmd-block" id="cmd10">
+sudo tee /etc/systemd/system/lumerad.service > /dev/null << EOF
+[Unit]
+Description=lumera
+After=network-online.target
+
+[Service]
+User=root
+ExecStart=/root/go/bin/lumerad start
+Restart=on-failure
+RestartSec=3
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
+EOF
+      <button class="copy-btn" data-copytarget="cmd10" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+  
+  <section>
+    <h2 class="section-title">Start</h2>
+    <div class="cmd-block" id="cmd11">
+sudo systemctl daemon-reload
+sudo systemctl enable lumerad
+sudo systemctl restart lumerad
+      <button class="copy-btn" data-copytarget="cmd11" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Snapshot</h2>
+    <div class="cmd-block" id="cmd12">
+lumerad tendermint unsafe-reset-all --home $HOME/.lumera
+if curl -s --head curl https://testnet-files.bonynode.online/lumera/snap_lumera.tar.lz4 | head -n 1 | grep "200" > /dev/null; then
+ curl https://testnet-files.bonynode.online/lumera/snap_lumera.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.lumera
+ else
+ echo no have snap
+fi
+sudo systemctl restart lumerad && sudo journalctl -u lumerad -f
+      <button class="copy-btn" data-copytarget="cmd12" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Create and Restore Address</h2>
+    <div class="cmd-block" id="cmd13">
+lumerad keys add wallet 
+# Restore wallet
+lumerad keys add wallet --recover
+# List
+lumerad keys list
+      <button class="copy-btn" data-copytarget="cmd13" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Cek Balance</h2>
+    <div class="cmd-block" id="cmd14">
+lumerad q bank balances $(lumerad keys show wallet -a)
+      <button class="copy-btn" data-copytarget="cmd14" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Create Validator</h2>
+    <div class="cmd-block" id="cmd15">
+lumerad tendermint show-validator
+
+nano $HOME/.lumera/validator.json
+
+{
+ "pubkey": ,
+ "amount": "1000000ulume",
+ "moniker": "",
+ "identity": "",
+ "website": "",
+ "security": "",
+ "details": "catsmile",
+ "commission-rate": "0.05",
+ "commission-max-rate": "0.2",
+ "commission-max-change-rate": "0.05",
+ "min-self-delegation": "1"
+}
+
+lumerad tx staking create-validator $HOME/.lumera/validator.json \
+--from wallet \
+--chain-id lumera-testnet-1 \
+--gas-prices=0.025ulume \
+--gas-adjustment=1.5 \
+--gas=auto
+      <button class="copy-btn" data-copytarget="cmd15" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Delegate to own</h2>
+    <div class="cmd-block" id="cmd16">
+lumerad tx staking delegate $(lumerad keys show wallet --bech val -a) 1000000ulume --from wallet --chain-id lumera-testnet-1 --gas-prices=0.025ulume --gas-adjustment=1.5 --gas=auto
+      <button class="copy-btn" data-copytarget="cmd16" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Unjail Validator</h2>
+    <div class="cmd-block" id="cmd17">
+lumerad tx slashing unjail --from wallet --chain-id lumera-testnet-1 --gas-prices=0.025ulume --gas-adjustment=1.5 --gas=auto
+      <button class="copy-btn" data-copytarget="cmd17" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Vote</h2>
+    <div class="cmd-block" id="cmd18">
+lumerad tx gov vote   --from wallet --chain-id lumera-testnet-1 --gas-prices=0.025ulume --gas-adjustment=1.5 --gas=auto
+      <button class="copy-btn" data-copytarget="cmd18" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Upgrade</h2>
+    <div class="cmd-block" id="cmd19">
+sudo systemctl stop lumerad
+lumerad tendermint unsafe-reset-all
+rm -rf ~/.lumera/wasm
+curl -o ~/.lumera/config/genesis.json https://raw.githubusercontent.com/LumeraProtocol/lumera-networks/refs/heads/master/testnet-2/genesis.json
+curl -o ~/.lumera/config/claims.csv https://raw.githubusercontent.com/LumeraProtocol/lumera-networks/refs/heads/master/testnet-2/claims.csv
+cd $HOME
+curl -LO https://github.com/LumeraProtocol/lumera/releases/download/v1.6.0/lumera_v1.6.0_linux_amd64.tar.gz
+tar -xvf lumera_v1.6.0_linux_amd64.tar.gz
+sudo ./install.sh
+sudo cp lumerad /root/go/bin/lumerad
+/root/go/bin/lumerad version --long | grep version
+sudo systemctl restart lumerad && sudo journalctl -u lumerad -f -o cat
+      <button class="copy-btn" data-copytarget="cmd19" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Delete node</h2>
+    <div class="cmd-block" id="cmd20">
+sudo systemctl stop lumerad
+sudo systemctl disable lumerad
+sudo rm /etc/systemd/system/lumerad.service
+sudo systemctl daemon-reload
+rm -f $(which lumerad)
+rm -rf .lumera
+      <button class="copy-btn" data-copytarget="cmd20" aria-label="Copy command">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-copytarget');
+        const content = document.getElementById(targetId);
+        if (content) {
+          navigator.clipboard.writeText(content.textContent.trim()).then(() => {
+            btn.innerHTML = '&#10003;';
+            setTimeout(() => {
+              btn.innerHTML = '<svg viewBox="0 0 24 24"><path fill="white" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>';
+            }, 1500);
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
